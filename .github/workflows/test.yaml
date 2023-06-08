@@ -1,0 +1,17 @@
+name: Test Extension
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: main
+    paths:
+      - "tests/**"
+      - ".github/workflows/tests.yaml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: test
+        run: pytest --version
