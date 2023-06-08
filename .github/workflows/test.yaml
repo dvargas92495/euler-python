@@ -4,14 +4,16 @@ on:
   workflow_dispatch:
   push:
     branches: main
-    paths:
-      - "tests/**"
-      - ".github/workflows/tests.yaml"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: install
+        run: pip install -r requirements.txt
       - name: test
-        run: pytest --version
+        run: pytest --cov=. --cov-report lcov
+      - name: upload coverage
+        uses: codecov/codecov-action@v3
+
